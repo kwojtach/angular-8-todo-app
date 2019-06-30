@@ -1,0 +1,26 @@
+<li class="list-group-item list-group-item-action todo" [ngClass]="{'todo-completed': todo.isCompleted}">
+  <div class="row">
+    <div class="col-md-3">
+      {{todo.label}}
+    </div>
+    <div class="col-md-5">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" [(ngModel)]="todo.isCompleted">
+          </div>
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="todo.name">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+               name="dp" [(ngModel)]="todo.deadline" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

@@ -1,20 +1,48 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Manage your todo list</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="btn-group mb-3" role="group">
+        <button type="button" class="btn btn-primary" (click)="onAddTodo()">Add</button>
+        <button type="button" class="btn btn-warning" (click)="onRemoveLastTodo()" placement="bottom" ngbTooltip="Remove the last todo">Remove</button>
+        <button type="button" class="btn btn-danger" (click)="onClearTodos()" placement="bottom" ngbTooltip="Remove all of the todos">Clear</button>
+        <button type="button" class="btn btn-success" (click)="onSaveTodos()" placement="bottom" ngbTooltip="Save todos">Save</button>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3" *ngIf="isAdding">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label>{{newTodoLabel}}</label>
+        <input type="text" class="form-control" [(ngModel)]="newTodoName" (keyup.enter)="onAddTodo()">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Deadline</label>
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="newTodoDeadline" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-secondary" (click)="d.toggle()" type="button"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+      <ul class="list-group">
+        <app-todo *ngFor="let todo of todos" [todos]="todos" [todo]="todo"></app-todo>
+      </ul>
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<ng-template appConfirm>
+  <app-confirm-modal-component></app-confirm-modal-component>
+</ng-template>
